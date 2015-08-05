@@ -21,7 +21,7 @@ TextNode := { type: 'text', text: String }
 ### Example input and output
 
 ```
-parse(`== Hello *world*. <my-Custom-Tag my-custom-attribute='zz' />==`) === {
+parse(`== Hello *world*. <my-Custom-Tag my-custom-attribute='zz' /> ==`) === {
   type: 'root',
   children: [
     {
