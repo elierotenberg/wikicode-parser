@@ -1,25 +1,66 @@
-ES6 Starterkit
+(Work in progress. Do not use.)
+
+
+WikiCode parser
 ==============
 
-The future is today!
+WikiCode to AST pure JS parser.
 
-#### Usage
+Takes a wikicode string and returns a JS Object representing an DOM-like AST.
 
-1. Fork or clone this repository.
-2. (Optional) Edit `package.json` if you intent to publish your package on `npm`.
-3. `npm install` to install all the required dependencies from `npm`.
-4. Hack `src/index.jsx` and `src/__tests__/index.jsx`.
-5. Lint/test using `gulp`.
-6. Don't forget to edit this `README.md` file.
+### Output format
 
-Also don't forget that to run ES6 code, you need to perform `babel` transpiling. The recommended way is to use `babel/register` in `node` and the `babel` loader from `webpack` in the browser.
+```
+Node := RootNode | ChildNode
+ChildNode := TagNode | TextNode
+RootNode := { type: 'root', children: ChildNode[] }
+TagNode := { type: 'tag', tagName: String, attrs: Object, children: ChildNode[] }
+TextNode := { type: 'text', text: String }
+```
 
-#### Features
+### Example input and output
 
-- Sanely configured `gulpfile.js`, `package.json`, `.gitignore`, `.editorconfig`, `.eslintrc`, `.jsbeautifyrc`.
-- Both CommonJS and ES6 modules are supported.
-- Linting and testing is pre-configured.
-- `lodash`, `bluebird` and `should` are included by default.
+```
+parse(`== Hello *world*. <my-Custom-Tag my-custom-attribute='zz' />==`) === {
+  type: 'root',
+  children: [
+    {
+      type: 'tag',
+      tagName: 'h2',
+      attrs: {},
+      children: [
+        {
+          type: 'text',
+          text: 'Hello ',
+        },
+        {
+          type: 'tag',
+          tagName: 'em',
+          attrs: {},
+          children: [
+            {
+              type: 'text',
+              text: 'world',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: '.',
+        },
+        {
+          type: 'tag',
+          tagName: 'my-Custom-Tag',
+          attrs: {
+            'my-custom-attribute': 'zz',
+          },
+          children: [],
+        },
+      ],
+    },
+  ],
+};
+```
 
 #### License
 
