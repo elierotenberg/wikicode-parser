@@ -35,7 +35,7 @@ parse(`== Hello *world*. <my-Custom-Tag my-custom-attribute='zz' /> ==`) === {
         },
         {
           type: 'tag',
-          tagName: 'em',
+          tagName: 'strong',
           attrs: {},
           children: [
             {
